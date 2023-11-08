@@ -9,6 +9,7 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
+@Service
 public class QrCodeReader {
 
     /**

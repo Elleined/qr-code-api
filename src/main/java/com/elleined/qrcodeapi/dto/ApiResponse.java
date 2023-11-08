@@ -1,4 +1,4 @@
-package com.elleined.qrcodeapi;
+package com.elleined.qrcodeapi.dto;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

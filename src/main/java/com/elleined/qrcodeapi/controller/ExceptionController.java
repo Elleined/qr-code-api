@@ -1,6 +1,6 @@
 package com.elleined.qrcodeapi.controller;
 
-import com.elleined.qrcodeapi.ApiResponse;
+import com.elleined.qrcodeapi.dto.ApiResponse;
 import com.elleined.qrcodeapi.exception.data.DataException;
 import com.elleined.qrcodeapi.exception.path.PathException;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class ExceptionController {
             PathException.class
     })
     public ResponseEntity<ApiResponse> handleNotFoundException(RuntimeException ex) {
-        var responseMessage = new ApiResponse(HttpStatus.NOT_FOUND, ex.getMessage());
-        return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
+        var responseMessage = new ApiResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
     }
 }
