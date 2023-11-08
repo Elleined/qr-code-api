@@ -1,7 +1,7 @@
 package com.elleined.qrcodeapi.service;
 
 import com.elleined.qrcodeapi.PathValidator;
-import com.elleined.qrcodeapi.exception.InvalidPathException;
+import com.elleined.qrcodeapi.exception.path.InvalidPathException;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
@@ -35,6 +35,7 @@ public class QrCodeReader {
         if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
         if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
         if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
+
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
 
@@ -59,7 +60,7 @@ public class QrCodeReader {
             IOException,
             InvalidPathException {
 
-        if (PathValidator.validate(filePath))   throw new InvalidPathException("Please specify the correct file path example: C://");
+        if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
         if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
         if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
 
