@@ -27,16 +27,16 @@ public class QrCodeGeneratorController {
     public void generateQrCode(@RequestParam String data,
                                @RequestParam int width,
                                @RequestParam int height,
-                               @Valid @RequestBody QrCode qrCode) throws IOException, WriterException {
+                               @Valid @RequestPart("qrCode") QrCode qrCode) throws IOException, WriterException {
 
         qrCodeGenerator.generateQrCode(data, width, height, qrCode);
     }
 
     @PostMapping("/multi-valued")
-    public void generateQrCode(@RequestBody List<String> dataList,
+    public void generateQrCode(@RequestPart("dataList") List<String> dataList,
                                @RequestParam int width,
                                @RequestParam int height,
-                               @Valid @RequestBody QrCode qrCode) throws IOException, WriterException {
+                               @Valid @RequestPart("qrCode") QrCode qrCode) throws IOException, WriterException {
 
         qrCodeGenerator.generateQrCode(dataList, width, height, qrCode);
     }
