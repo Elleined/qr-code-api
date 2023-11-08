@@ -2,7 +2,6 @@ package com.elleined.qrcodeapi.service;
 
 import com.elleined.qrcodeapi.PathValidator;
 import com.elleined.qrcodeapi.exception.data.NoDataException;
-import com.elleined.qrcodeapi.exception.path.InvalidPathException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -13,14 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
-public class QrCodeWriter {
+public class QrCodeGenerator {
 
     /**
      * This method will store single valued QR Code right away in the specified directory path
@@ -47,7 +45,7 @@ public class QrCodeWriter {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
-        System.out.println("Qr Code Created Successfully");
+        log.debug("Qr Code Created Successfully");
     }
 
     /**
@@ -78,69 +76,6 @@ public class QrCodeWriter {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
-        System.out.println("Qr Code Created Successfully");
-    }
-
-    /**
-     * This method will not create the image right away you need to use the createQrCodeImage method in QrCodeReader to actually create the QR Code image
-     * @param data is the text you want to encode/store in your QR Code
-     * @param width is the width of the QR Code image
-     * @param height is the height of the QR Code image
-     * @param imageFormat is file format of the qr code. example: jpg, png, etc...
-     */
-    public byte[] generateQrCodeImage(String data, int width, int height, String imageFormat)
-            throws WriterException,
-            InvalidPathException,
-            IOException {
-
-        if (PathValidator.validate(data)) throw new InvalidPathException("Please specify the data that will be encoded in your qr code");
-        if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
-        BitMatrix matrix = new MultiFormatWriter()
-                .encode(data, BarcodeFormat.QR_CODE, width, height);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        MatrixToImageWriter.writeToStream(matrix, imageFormat, outputStream);
-        System.out.println("Qr Generated Successfully");
-        return outputStream.toByteArray();
-    }
-
-    public byte[] generateQrCodeImage(List<String> dataList, int width, int height, String imageFormat)
-            throws WriterException,
-            IOException,
-            NoDataException {
-        if (dataList.isEmpty()) throw new NoDataException("Please specify the data that will be encoded in your qr code");
-        if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
-
-        String joinedData = String.join(", ", dataList);
-        BitMatrix matrix = new MultiFormatWriter()
-                .encode(joinedData, BarcodeFormat.QR_CODE, width, height);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        MatrixToImageWriter.writeToStream(matrix, imageFormat, outputStream);
-        System.out.println("Qr Generated Successfully");
-        return outputStream.toByteArray();
-    }
-
-    /**
-     * This method will create the QR Code image in your specified path
-     * And can also be used when you are building a website that QR Code will be helpful
-     * @param generatedQrCode is the byte[] array that you generated in generateQrCodeImage method in QrCodeWriter object
-     * @param filePath is the full path directory where the file is located. example: C://
-     * @param fileName is the actual file name of the qr code. example: myqrcode
-     * @param imageFormat is file format of the qr code. example: jpg, png, etc...
-     * This method will transform the specified paths like: C://myqrcode.jpg automatically
-     */
-    public void createQrCodeImage(byte[] generatedQrCode, String filePath, String fileName, String imageFormat) throws IOException {
-        if (generatedQrCode == null) throw new IllegalArgumentException("Generate first the qr code in QrCodeWriter object that returns byte[] then use it in here");
-        if (PathValidator.validate(filePath)) filePath = "./";
-        if (PathValidator.validate(fileName)) fileName = "generated-qr-code";
-        if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
-
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(generatedQrCode);
-        BufferedImage readQrCode = ImageIO.read(inputStream);
-
-        String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
-        ImageIO.write(readQrCode, imageFormat, new File(formattedPath));
-        System.out.println("Qr Code Image Created Successfully");
+        log.debug("Qr Code Created Successfully");
     }
 }

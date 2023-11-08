@@ -27,7 +27,7 @@ public class QrCodeReader {
      * @param imageFormat is file format of the qr code. example: jpg, png, etc...
      * This method will transform the specified paths like: C://myqrcode.jpg automatically
      */
-    public String readQrCode(String filePath, String fileName, String imageFormat)
+    public String read(String filePath, String fileName, String imageFormat)
             throws IOException,
             NotFoundException,
             InvalidPathException {
@@ -49,13 +49,13 @@ public class QrCodeReader {
     }
 
     /**
-     * Use this if you want to read a multivalued data in your generated qr code that you created otherwise use readQrCode method
+     * Use this if you want to read a multivalued data in your generated qr code that you created otherwise use read method
      * @param filePath is the full path directory where the file is located. example: C://
      * @param fileName is the actual file name of the qr code. example: myqrcode
      * @param imageFormat is file format of the qr code. example: jpg, png, etc...
      * This method will transform the specified paths like: C://myqrcode.jpg automatically
      */
-    public List<String> readMultiValuedQrCode(String filePath, String fileName, String imageFormat)
+    public List<String> readMultiValued(String filePath, String fileName, String imageFormat)
             throws NotFoundException,
             IOException,
             InvalidPathException {
