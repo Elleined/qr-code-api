@@ -1,21 +1,23 @@
 package com.elleined.qrcodeapi.service;
 
 import com.elleined.qrcodeapi.PathValidator;
+import com.elleined.qrcodeapi.exception.InvalidPathException;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.InvalidPathException;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class QrCodeReader {
 
     /**
@@ -26,8 +28,9 @@ public class QrCodeReader {
      * This method will transform the specified paths like: C://myqrcode.jpg automatically
      */
     public String readQrCode(String filePath, String fileName, String imageFormat)
-            throws NotFoundException,
-            IOException {
+            throws IOException,
+            NotFoundException,
+            InvalidPathException {
 
         if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
         if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
@@ -40,7 +43,7 @@ public class QrCodeReader {
         ));
 
         Result result = new MultiFormatReader().decode(bitmap);
-        System.out.println("Reading the QR Code Success");
+        log.debug("Reading the QR Code Success");
         return result.getText();
     }
 
@@ -53,11 +56,12 @@ public class QrCodeReader {
      */
     public List<String> readMultiValuedQrCode(String filePath, String fileName, String imageFormat)
             throws NotFoundException,
-            IOException {
+            IOException,
+            InvalidPathException {
 
-        if (PathValidator.validate(filePath))   throw new PathEx("Please specify the correct file path example: C://");
-        if (PathValidator.validate(fileName)) throw new PathEx("Please specify the correct file name example: yourqrcode");
-        if (PathValidator.validate(imageFormat)) throw new PathEx("Please specify the correct image format example: jpg");
+        if (PathValidator.validate(filePath))   throw new InvalidPathException("Please specify the correct file path example: C://");
+        if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
+        if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
@@ -71,7 +75,7 @@ public class QrCodeReader {
 
         List<String> list = Arrays.asList(decodeQrCode.split(","));
 
-        System.out.println("Reading the QR Code Success");
+        log.debug("Reading the multi-valued QR Code Success");
         return list;
     }
 }
