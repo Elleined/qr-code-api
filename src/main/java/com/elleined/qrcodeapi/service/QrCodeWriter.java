@@ -1,12 +1,14 @@
 package com.elleined.qrcodeapi.service;
 
 import com.elleined.qrcodeapi.PathValidator;
+import com.elleined.qrcodeapi.exception.data.NoDataException;
 import com.elleined.qrcodeapi.exception.path.InvalidPathException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 public class QrCodeWriter {
 
     /**
@@ -31,9 +34,10 @@ public class QrCodeWriter {
      */
     public void generateQrCode(String data, int width, int height, String filePath, String fileName, String imageFormat)
             throws WriterException,
-            IOException {
+            IOException,
+            NoDataException {
 
-        if (PathValidator.validate(data)) throw new IllegalArgumentException("Please specify the data that will be encoded in your qr code");
+        if (PathValidator.validate(data)) throw new NoDataException("Please specify the data that will be encoded in your qr code");
         if (PathValidator.validate(filePath)) filePath = "./";
         if (PathValidator.validate(fileName)) fileName = "generated-qr-code";
         if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
@@ -57,8 +61,12 @@ public class QrCodeWriter {
      * @param fileName is the actual file name of the qr code. example: myqrcode
      * @param imageFormat is file format of the qr code. example: jpg, png, etc...
      */
-    public void generateQrCode(List<String> dataList, int width, int height, String filePath, String fileName, String imageFormat) throws WriterException, IOException {
-        if (dataList.isEmpty()) throw new IllegalArgumentException("Please specify the data that will be encoded in your qr code");
+    public void generateQrCode(List<String> dataList, int width, int height, String filePath, String fileName, String imageFormat)
+            throws WriterException,
+            IOException,
+            NoDataException {
+
+        if (dataList.isEmpty()) throw new NoDataException("Please specify the data that will be encoded in your qr code");
         if (PathValidator.validate(filePath)) filePath = "./";
         if (PathValidator.validate(fileName)) fileName = "generated-qr-code";
         if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
@@ -96,8 +104,11 @@ public class QrCodeWriter {
         return outputStream.toByteArray();
     }
 
-    public byte[] generateQrCodeImage(List<String> dataList, int width, int height, String imageFormat) throws WriterException, IOException {
-        if (dataList.isEmpty()) throw new IllegalArgumentException("Please specify the data that will be encoded in your qr code");
+    public byte[] generateQrCodeImage(List<String> dataList, int width, int height, String imageFormat)
+            throws WriterException,
+            IOException,
+            NoDataException {
+        if (dataList.isEmpty()) throw new NoDataException("Please specify the data that will be encoded in your qr code");
         if (PathValidator.validate(imageFormat)) imageFormat = "jpg";
 
         String joinedData = String.join(", ", dataList);
