@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,10 +25,13 @@ public class QrCodeReader {
      * @param imageFormat is file format of the qr code. example: jpg, png, etc...
      * This method will transform the specified paths like: C://myqrcode.jpg automatically
      */
-    public String readQrCode(String filePath, String fileName, String imageFormat) throws NotFoundException, IOException {
-        if (PathValidator.validate(filePath)) throw new IllegalArgumentException("Please specify the correct file path example: C://");
-        if (PathValidator.validate(fileName)) throw new IllegalArgumentException("Please specify the correct file name example: yourqrcode");
-        if (PathValidator.validate(imageFormat)) throw new IllegalArgumentException("Please specify the correct image format example: jpg");
+    public String readQrCode(String filePath, String fileName, String imageFormat)
+            throws NotFoundException,
+            IOException {
+
+        if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
+        if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
+        if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
 
@@ -47,10 +51,13 @@ public class QrCodeReader {
      * @param imageFormat is file format of the qr code. example: jpg, png, etc...
      * This method will transform the specified paths like: C://myqrcode.jpg automatically
      */
-    public List<String> readMultiValuedQrCode(String filePath, String fileName, String imageFormat) throws NotFoundException, IOException {
-        if (PathValidator.validate(filePath))   throw new IllegalArgumentException("Please specify the correct file path example: C://");
-        if (PathValidator.validate(fileName)) throw new IllegalArgumentException("Please specify the correct file name example: yourqrcode");
-        if (PathValidator.validate(imageFormat)) throw new IllegalArgumentException("Please specify the correct image format example: jpg");
+    public List<String> readMultiValuedQrCode(String filePath, String fileName, String imageFormat)
+            throws NotFoundException,
+            IOException {
+
+        if (PathValidator.validate(filePath))   throw new PathEx("Please specify the correct file path example: C://");
+        if (PathValidator.validate(fileName)) throw new PathEx("Please specify the correct file name example: yourqrcode");
+        if (PathValidator.validate(imageFormat)) throw new PathEx("Please specify the correct image format example: jpg");
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
