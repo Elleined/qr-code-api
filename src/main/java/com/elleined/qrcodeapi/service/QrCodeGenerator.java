@@ -1,7 +1,7 @@
 package com.elleined.qrcodeapi.service;
 
 import com.elleined.qrcodeapi.PathValidator;
-import com.elleined.qrcodeapi.exception.data.NoDataException;
+import com.elleined.qrcodeapi.exception.NoDataException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -43,7 +43,7 @@ public class QrCodeGenerator {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
-        log.debug("Qr Code Created Successfully");
+        log.debug("QR Code with single-valued value generated successfully");
     }
 
     /**
@@ -74,6 +74,6 @@ public class QrCodeGenerator {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
-        log.debug("Qr Code Created Successfully");
+        log.debug("QR Code with multi-valued values generated successfully");
     }
 }

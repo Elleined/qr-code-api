@@ -1,7 +1,5 @@
 package com.elleined.qrcodeapi.service;
 
-import com.elleined.qrcodeapi.PathValidator;
-import com.elleined.qrcodeapi.exception.path.InvalidPathException;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
@@ -31,12 +29,7 @@ public class QrCodeReader {
      */
     public String read(String filePath, String fileName, String imageFormat)
             throws IOException,
-            NotFoundException,
-            InvalidPathException {
-
-        if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
-        if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
-        if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
+            NotFoundException {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
@@ -46,7 +39,7 @@ public class QrCodeReader {
         ));
 
         Result result = new MultiFormatReader().decode(bitmap);
-        log.debug("Reading the QR Code Success");
+        log.debug("QR Code with single-valued value read successfully");
         return result.getText();
     }
 
@@ -59,12 +52,7 @@ public class QrCodeReader {
      */
     public List<String> readMultiValued(String filePath, String fileName, String imageFormat)
             throws NotFoundException,
-            IOException,
-            InvalidPathException {
-
-        if (PathValidator.validate(filePath)) throw new InvalidPathException("Please specify the correct file path example: C://");
-        if (PathValidator.validate(fileName)) throw new InvalidPathException("Please specify the correct file name example: yourqrcode");
-        if (PathValidator.validate(imageFormat)) throw new InvalidPathException("Please specify the correct image format example: jpg");
+            IOException {
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
@@ -78,7 +66,7 @@ public class QrCodeReader {
 
         List<String> list = Arrays.asList(decodeQrCode.split(","));
 
-        log.debug("Reading the multi-valued QR Code Success");
+        log.debug("QR Code with multi-valued values read successfully");
         return list;
     }
 }

@@ -1,4 +1,4 @@
-package com.elleined.qrcodeapi.exception.data;
+package com.elleined.qrcodeapi.exception;
 
 public class DataException extends RuntimeException {
     public DataException(String message) {
