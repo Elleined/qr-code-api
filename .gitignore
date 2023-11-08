@@ -31,10 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
-# Compiled class file
+# Compiled class qrCode
 *.class
 
-# Log file
+# Log qrCode
 *.log
 
 # BlueJ files

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ReadRequest {
+public class QrCode {
     @NotBlank(message = "File path is blank, null, or empty. Please specify the correct file path example: C://")
     private String filePath;
 

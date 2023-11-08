@@ -1,5 +1,6 @@
 package com.elleined.qrcodeapi.service;
 
+import com.elleined.qrcodeapi.dto.QrCode;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
@@ -20,16 +21,14 @@ import java.util.List;
 @Service
 public class QrCodeReader {
 
-    /**
-     * Use this if you want to read a single valued data in your generated qr code otherwise use readMultiValuedQrCode method
-     * @param filePath is the full path directory where the file is located. example: C://
-     * @param fileName is the actual file name of the qr code. example: myqrcode
-     * @param imageFormat is file format of the qr code. example: jpg, png, etc...
-     * This method will transform the specified paths like: C://myqrcode.jpg automatically
-     */
-    public String read(String filePath, String fileName, String imageFormat)
+    // This method will transform the specified paths like: C://myqrcode.jpg automatically
+    public String read(QrCode qrCode)
             throws IOException,
             NotFoundException {
+
+        String filePath = qrCode.getFilePath();
+        String fileName = qrCode.getFileName();
+        String imageFormat = qrCode.getImageFormat();
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
@@ -43,16 +42,14 @@ public class QrCodeReader {
         return result.getText();
     }
 
-    /**
-     * Use this if you want to read a multivalued data in your generated qr code that you created otherwise use read method
-     * @param filePath is the full path directory where the file is located. example: C://
-     * @param fileName is the actual file name of the qr code. example: myqrcode
-     * @param imageFormat is file format of the qr code. example: jpg, png, etc...
-     * This method will transform the specified paths like: C://myqrcode.jpg automatically
-     */
-    public List<String> readMultiValued(String filePath, String fileName, String imageFormat)
+    // This method will transform the specified paths like: C://myqrcode.jpg automatically
+    public List<String> readMultiValued(QrCode qrCode)
             throws NotFoundException,
             IOException {
+
+        String filePath = qrCode.getFilePath();
+        String fileName = qrCode.getFileName();
+        String imageFormat = qrCode.getImageFormat();
 
         String formattedPath = filePath + "\\" + fileName + '.' + imageFormat;
         BufferedImage bf = ImageIO.read(new FileInputStream(formattedPath));
