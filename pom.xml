@@ -14,7 +14,7 @@
 	<name>qr-code-api</name>
 	<description>API for creating and reading QR Code</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
@@ -65,6 +65,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>qr-code-api</finalName>
 	</build>
 
 </project>

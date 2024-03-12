@@ -1,0 +1,17 @@
+version: "3"
+services:
+  qca_app:
+    build: .
+    image: elleined/qca
+    container_name: qca_app
+    restart: always
+    ports:
+      - "8092:8092"
+    networks:
+      - qca_network
+networks:
+  qca_network:
+    name: qca_network
+    external: false
+    ipam:
+      driver: default
