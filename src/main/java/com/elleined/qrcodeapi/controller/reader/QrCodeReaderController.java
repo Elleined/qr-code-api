@@ -1,4 +1,4 @@
-package com.elleined.qrcodeapi.controller;
+package com.elleined.qrcodeapi.controller.reader;
 
 import com.elleined.qrcodeapi.service.reader.QrCodeReader;
 import com.google.zxing.NotFoundException;
@@ -19,12 +19,12 @@ public class QrCodeReaderController {
     private final QrCodeReader qrCodeReader;
 
     @PostMapping("/single-valued")
-    public String read(@RequestParam("absolutePathWithFileName") String absolutePathWithFileName) throws NotFoundException, IOException {
-        return qrCodeReader.read(absolutePathWithFileName);
+    public String read(@RequestParam("destinationWithFileName") String destinationWithFileName) throws NotFoundException, IOException {
+        return qrCodeReader.read(destinationWithFileName);
     }
 
     @PostMapping("/multi-valued")
-    public List<String> readMultiValued(@RequestParam("absolutePathWithFileName") String absolutePathWithFileName) throws NotFoundException, IOException {
-        return qrCodeReader.readMultiValued(absolutePathWithFileName);
+    public List<String> readMultiValued(@RequestParam("destinationWithFileName") String destinationWithFileName) throws NotFoundException, IOException {
+        return qrCodeReader.readMultiValued(destinationWithFileName);
     }
 }

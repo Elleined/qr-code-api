@@ -1,7 +1,7 @@
 package com.elleined.qrcodeapi.controller;
 
 import com.elleined.qrcodeapi.dto.ApiResponse;
-import com.elleined.qrcodeapi.exception.DataException;
+import com.elleined.qrcodeapi.exception.data.DataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;

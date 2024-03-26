@@ -1,8 +1,7 @@
 package com.elleined.qrcodeapi.service.generator;
 
 import com.elleined.qrcodeapi.PathValidator;
-import com.elleined.qrcodeapi.dto.QrCode;
-import com.elleined.qrcodeapi.exception.NoDataException;
+import com.elleined.qrcodeapi.exception.data.NoDataException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -20,7 +19,7 @@ import java.util.List;
 public class QrCodeGeneratorImpl implements QrCodeGenerator {
 
     @Override
-    public void generateQrCode(String data, int width, int height, QrCode qrCode)
+    public void generateQrCode(String data, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException {
@@ -28,28 +27,22 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
         if (PathValidator.validate(data))
             throw new NoDataException("Please specify the data that will be encoded in your qr code");
 
-        String imageFormat = qrCode.getImageFormat();
         BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height);
-        String formattedPath = qrCode.getFilePath() + qrCode.getFileName() + '.' + imageFormat;
-        MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
+        MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(destinationWithFileName));
         log.debug("QR Code with single-valued value generated successfully");
     }
 
     @Override
-    public void generateQrCode(List<String> dataList, int width, int height, QrCode qrCode)
+    public void generateQrCode(List<String> dataList, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException {
 
         if (dataList.isEmpty()) throw new NoDataException("Please specify the data that will be encoded in your qr code");
-        String imageFormat = qrCode.getImageFormat();
-
         String joinedData = String.join(", ", dataList);
         BitMatrix matrix = new MultiFormatWriter()
                 .encode(joinedData, BarcodeFormat.QR_CODE, width, height);
-
-        String formattedPath = qrCode.getFilePath() + qrCode.getFileName() + '.' + imageFormat;
-        MatrixToImageWriter.writeToPath(matrix, imageFormat, Paths.get(formattedPath));
+        MatrixToImageWriter.writeToPath(matrix, "jpg", Paths.get(destinationWithFileName));
         log.debug("QR Code with multi-valued values generated successfully");
     }
 }

@@ -21,11 +21,11 @@ import java.util.List;
 public class QrCodeReaderImpl implements QrCodeReader {
 
     @Override
-    public String read(String absolutePathWithFileName)
+    public String read(String destinationWithFileName)
             throws IOException,
             NotFoundException {
 
-        BufferedImage bf = ImageIO.read(new FileInputStream(absolutePathWithFileName));
+        BufferedImage bf = ImageIO.read(new FileInputStream(destinationWithFileName));
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(
                 new BufferedImageLuminanceSource(bf)
         ));
@@ -35,15 +35,15 @@ public class QrCodeReaderImpl implements QrCodeReader {
     }
 
     @Override
-    public List<String> readMultiValued(String absolutePathWithFileName)
+    public List<String> readMultiValued(String destinationWithFileName)
             throws NotFoundException,
             IOException {
-        BufferedImage bf = ImageIO.read(new FileInputStream(absolutePathWithFileName));
+        BufferedImage bf = ImageIO.read(new FileInputStream(destinationWithFileName));
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(
                 new BufferedImageLuminanceSource(bf)
         ));
         Result result = new MultiFormatReader().decode(bitmap);
-        List<String> list = Arrays.asList(result.getText().split(","));
+        List<String> list = Arrays.stream(result.getText().split(",")).map(String::strip).toList();
         log.debug("QR Code with multi-valued values read successfully");
         return list;
     }
