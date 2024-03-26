@@ -23,7 +23,7 @@ public class QrCodeGeneratorController {
                                @RequestParam("height") int height,
                                @RequestParam("destinationWithFileName") String destinationWithFileName) throws IOException, WriterException {
 
-        qrCodeGenerator.generateQrCode(data, width, height, destinationWithFileName);
+        qrCodeGenerator.generateSingleValuedQrCode(data, width, height, destinationWithFileName);
     }
 
     @PostMapping("/multi-valued")
@@ -32,6 +32,6 @@ public class QrCodeGeneratorController {
                                @RequestParam("height") int height,
                                @RequestParam("destinationWithFileName") String destinationWithFileName) throws IOException, WriterException {
 
-        qrCodeGenerator.generateQrCode(dataList, width, height, destinationWithFileName);
+        qrCodeGenerator.generateMultiValuedQrCode(dataList, width, height, destinationWithFileName);
     }
 }

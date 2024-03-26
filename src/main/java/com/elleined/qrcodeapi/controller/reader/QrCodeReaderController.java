@@ -20,7 +20,7 @@ public class QrCodeReaderController {
 
     @PostMapping("/single-valued")
     public String read(@RequestParam("destinationWithFileName") String destinationWithFileName) throws NotFoundException, IOException {
-        return qrCodeReader.read(destinationWithFileName);
+        return qrCodeReader.readSingleValued(destinationWithFileName);
     }
 
     @PostMapping("/multi-valued")

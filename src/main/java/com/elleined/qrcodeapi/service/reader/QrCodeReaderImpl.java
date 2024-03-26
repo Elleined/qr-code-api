@@ -21,7 +21,7 @@ import java.util.List;
 public class QrCodeReaderImpl implements QrCodeReader {
 
     @Override
-    public String read(String destinationWithFileName)
+    public String readSingleValued(String destinationWithFileName)
             throws IOException,
             NotFoundException {
 

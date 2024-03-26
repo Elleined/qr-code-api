@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.util.List;
 
 public interface QrCodeGenerator {
-    void generateQrCode(String data, int width, int height, String destinationWithFileName)
+    void generateSingleValuedQrCode(String data, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException;
 
-    void generateQrCode(List<String> dataList, int width, int height, String destinationWithFileName)
+    void generateMultiValuedQrCode(List<String> dataList, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException;

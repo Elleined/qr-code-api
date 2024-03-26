@@ -8,7 +8,7 @@ import java.util.List;
 public interface QrCodeReader {
 
     // Example: C:\\my-qr-code.png
-    String read(String destinationWithFileName)
+    String readSingleValued(String destinationWithFileName)
             throws IOException,
             NotFoundException;
 
