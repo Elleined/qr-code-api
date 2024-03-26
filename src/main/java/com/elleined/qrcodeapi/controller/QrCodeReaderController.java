@@ -1,13 +1,11 @@
 package com.elleined.qrcodeapi.controller;
 
-import com.elleined.qrcodeapi.dto.QrCode;
-import com.elleined.qrcodeapi.service.QrCodeReader;
+import com.elleined.qrcodeapi.service.reader.QrCodeReader;
 import com.google.zxing.NotFoundException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -21,12 +19,12 @@ public class QrCodeReaderController {
     private final QrCodeReader qrCodeReader;
 
     @PostMapping("/single-valued")
-    public String read(@Valid @RequestBody QrCode qrCode) throws NotFoundException, IOException {
-        return qrCodeReader.read(qrCode);
+    public String read(@RequestParam("absolutePathWithFileName") String absolutePathWithFileName) throws NotFoundException, IOException {
+        return qrCodeReader.read(absolutePathWithFileName);
     }
 
     @PostMapping("/multi-valued")
-    public List<String> readMultiValued(@Valid @RequestBody QrCode qrCode) throws NotFoundException, IOException {
-        return qrCodeReader.readMultiValued(qrCode);
+    public List<String> readMultiValued(@RequestParam("absolutePathWithFileName") String absolutePathWithFileName) throws NotFoundException, IOException {
+        return qrCodeReader.readMultiValued(absolutePathWithFileName);
     }
 }

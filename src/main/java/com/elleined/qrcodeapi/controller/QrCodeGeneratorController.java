@@ -1,7 +1,7 @@
 package com.elleined.qrcodeapi.controller;
 
 import com.elleined.qrcodeapi.dto.QrCode;
-import com.elleined.qrcodeapi.service.QrCodeGenerator;
+import com.elleined.qrcodeapi.service.generator.QrCodeGenerator;
 import com.google.zxing.WriterException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
