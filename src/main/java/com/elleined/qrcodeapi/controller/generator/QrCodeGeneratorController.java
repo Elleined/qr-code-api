@@ -33,6 +33,5 @@ public class QrCodeGeneratorController {
                                @RequestParam("destinationWithFileName") String destinationWithFileName) throws IOException, WriterException {
 
         qrCodeGenerator.generateMultiValuedQrCode(dataList, width, height, destinationWithFileName);
-        
     }
 }
