@@ -19,7 +19,7 @@ import java.util.List;
 public class QrCodeGeneratorImpl implements QrCodeGenerator {
 
     @Override
-    public void generateSingleValuedQrCode(String data, int width, int height, String destinationWithFileName)
+    public void generateQrCode(String data, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException {
@@ -33,7 +33,7 @@ public class QrCodeGeneratorImpl implements QrCodeGenerator {
     }
 
     @Override
-    public void generateMultiValuedQrCode(List<String> dataList, int width, int height, String destinationWithFileName)
+    public void generateQrCode(List<String> dataList, int width, int height, String destinationWithFileName)
             throws WriterException,
             IOException,
             NoDataException {
