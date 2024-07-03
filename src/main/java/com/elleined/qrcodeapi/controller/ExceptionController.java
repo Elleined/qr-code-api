@@ -2,6 +2,7 @@ package com.elleined.qrcodeapi.controller;
 
 import com.elleined.qrcodeapi.dto.APIResponse;
 import com.elleined.qrcodeapi.exception.data.DataException;
+import com.google.zxing.WriterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -18,6 +19,14 @@ public class ExceptionController {
             DataException.class
     })
     public ResponseEntity<APIResponse> handleNotFoundException(DataException ex) {
+        var responseMessage = new APIResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({
+            WriterException.class
+    })
+    public ResponseEntity<APIResponse> handleWriterException(WriterException ex) {
         var responseMessage = new APIResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
     }
