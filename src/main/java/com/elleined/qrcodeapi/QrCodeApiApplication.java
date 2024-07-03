@@ -15,6 +15,7 @@ public class QrCodeApiApplication {
 		SpringApplication.run(QrCodeApiApplication.class, args);
 	}
 
+
 	@Bean
 	public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
 		return new BufferedImageHttpMessageConverter();

@@ -20,5 +20,13 @@ public interface CodeService {
         Result result = new MultiFormatReader().decode(bitmap);
         return result.getText();
     }
+
+    static String read(BufferedImage bufferedImage) throws NotFoundException {
+        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(
+                new BufferedImageLuminanceSource(bufferedImage)
+        ));
+        Result result = new MultiFormatReader().decode(bitmap);
+        return result.getText();
+    }
 }
 

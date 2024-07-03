@@ -1,7 +1,6 @@
 # qr-code-api
 API for creating and reading QR Code
 
-
 # 2 types of barcode
 - Linear barcode
 - 2D barcode
