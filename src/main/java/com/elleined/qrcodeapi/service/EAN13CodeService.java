@@ -1,8 +1,10 @@
 package com.elleined.qrcodeapi.service;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.EAN13Reader;
 import com.google.zxing.oned.EAN13Writer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.awt.image.BufferedImage;
 @RequiredArgsConstructor
 public class EAN13CodeService implements CodeService {
     private final EAN13Writer ean13Writer;
+    private final EAN13Reader ean13Reader;
 
     @Override
     public BufferedImage generate(String text, int width, int height) {

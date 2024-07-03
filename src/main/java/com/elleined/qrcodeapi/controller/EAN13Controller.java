@@ -1,6 +1,7 @@
 package com.elleined.qrcodeapi.controller;
 
 import com.elleined.qrcodeapi.service.EAN13CodeService;
+import com.google.zxing.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
