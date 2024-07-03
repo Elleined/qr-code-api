@@ -1,6 +1,7 @@
 package com.elleined.qrcodeapi.controller;
 
-import com.elleined.qrcodeapi.service.EAN13CodeService;
+import com.elleined.qrcodeapi.service.Code128Service;
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,15 @@ import java.awt.image.BufferedImage;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/ean-13")
-public class EAN13Controller {
-
-    private final EAN13CodeService ean13CodeService;
+@RequestMapping("/code-128")
+public class Code128Controller {
+    private final Code128Service code128Service;
 
     @GetMapping(value = "/generate", produces = MediaType.IMAGE_PNG_VALUE)
-    public BufferedImage generate(@RequestParam(value = "text", defaultValue = "4006381333931") String text,
+    public BufferedImage generate(@RequestParam("text") String text,
                                   @RequestParam(value = "width", required = false, defaultValue = "300") int width,
-                                  @RequestParam(value = "height", required = false, defaultValue = "150") int height) {
+                                  @RequestParam(value = "height", required = false, defaultValue = "150") int height) throws WriterException {
 
-        return ean13CodeService.generate(text, width, height);
+        return code128Service.generate(text, width, height);
     }
 }
