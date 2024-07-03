@@ -1,6 +1,6 @@
 package com.elleined.qrcodeapi.controller;
 
-import com.elleined.qrcodeapi.dto.ApiResponse;
+import com.elleined.qrcodeapi.dto.APIResponse;
 import com.elleined.qrcodeapi.exception.data.DataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +17,16 @@ public class ExceptionController {
     @ExceptionHandler({
             DataException.class
     })
-    public ResponseEntity<ApiResponse> handleNotFoundException(DataException ex) {
-        var responseMessage = new ApiResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    public ResponseEntity<APIResponse> handleNotFoundException(DataException ex) {
+        var responseMessage = new APIResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BindException.class)
-    public ResponseEntity<List<ApiResponse>> handleBindException(BindException ex) {
-        List<ApiResponse> errors = ex.getBindingResult().getAllErrors().stream()
+    public ResponseEntity<List<APIResponse>> handleBindException(BindException ex) {
+        List<APIResponse> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
-                .map(errorMessage -> new ApiResponse(HttpStatus.BAD_REQUEST, errorMessage))
+                .map(errorMessage -> new APIResponse(HttpStatus.BAD_REQUEST, errorMessage))
                 .toList();
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
