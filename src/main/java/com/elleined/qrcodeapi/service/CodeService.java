@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 
 public interface CodeService {
     BufferedImage generate(String text, int width, int height) throws WriterException;
