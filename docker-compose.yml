@@ -1,10 +1,8 @@
 version: "3.8"
 services:
-  qca_app:
-    build: .
+  qr_code_api:
     image: elleined/qca
-    container_name: qca_app
-    restart: always
+    container_name: qr_code_api
     ports:
       - "8092:8092"
     networks:
