@@ -3,8 +3,8 @@ services:
   qr_code_api:
     image: elleined/qr-code-api
     container_name: qr_code_api
-    ports:
-      - "8092:8092"
+    env_file:
+      - .env
     networks:
       - qr_code_api_network
 networks:
