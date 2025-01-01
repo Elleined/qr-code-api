@@ -5,6 +5,8 @@ services:
     container_name: qr_code_api
     env_file:
       - .env
+    ports:
+      - "8092:8092"
     networks:
       - qr_code_api_network
 networks:
