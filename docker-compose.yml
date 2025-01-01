@@ -1,15 +1,15 @@
 version: "3.8"
 services:
   qr_code_api:
-    image: elleined/qca
+    image: elleined/qr-code-api
     container_name: qr_code_api
     ports:
       - "8092:8092"
     networks:
-      - qca_network
+      - qr_code_api_network
 networks:
-  qca_network:
-    name: qca_network
+  qr_code_api_network:
+    name: qr_code_api_network
     external: false
     ipam:
       driver: default

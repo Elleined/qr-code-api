@@ -18,7 +18,7 @@ pipeline {
         stage("Create Docker Image") {
             steps {
                 echo "Creating docker image. Please Wait..."
-                sh 'docker build -t elleined/qca:latest .'
+                sh 'docker build -t elleined/qr-code-api:latest .'
                 echo "Creating docker image. Success!"
             }
         }
@@ -34,7 +34,7 @@ pipeline {
         stage("Push docker image to DockerHub") {
             steps {
                 echo "Pushing docker image to DockerHub. Please Wait..."
-                sh 'docker push elleined/qca:latest'
+                sh 'docker push elleined/qr-code-api:latest'
                 echo "Pushing docker image to DockerHub. Success!"
             }
         }
